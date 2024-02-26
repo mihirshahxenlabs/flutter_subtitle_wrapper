@@ -41,6 +41,24 @@ class SubtitleController {
     }
   }
 
+  void updateSubtitle({
+    String? url,
+    String? content
+  }) {
+    if (_attached) {
+      subtitleUrl = url;
+      subtitlesContent = content;
+      _subtitleBloc!.add(
+        InitSubtitles(
+          subtitleController: this,
+        ),
+      );
+    } else {
+      throw Exception('Seems that the controller is not correctly attached.');
+    }
+  }
+
+  
   void updateSubtitleContent({
     required String content,
   }) {
