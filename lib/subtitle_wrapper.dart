@@ -25,25 +25,25 @@ class SubtitleWrapper extends StatelessWidget {
       children: <Widget>[
         videoChild,
         if (subtitleController.showSubtitles)
-          IgnorePointer(
-            ignoring: true,
-            child: Positioned(
-              top: subtitleStyle.position.top,
-              bottom: subtitleStyle.position.bottom,
-              left: subtitleStyle.position.left,
-              right: subtitleStyle.position.right,
-              child: BlocProvider(
-                create: (context) => SubtitleBloc(
-                  videoPlayerController: videoPlayerController,
-                  subtitleRepository: SubtitleDataRepository(
+          Positioned(
+            top: subtitleStyle.position.top,
+            bottom: subtitleStyle.position.bottom,
+            left: subtitleStyle.position.left,
+            right: subtitleStyle.position.right,
+            child: BlocProvider(
+              create: (context) => SubtitleBloc(
+                videoPlayerController: videoPlayerController,
+                subtitleRepository: SubtitleDataRepository(
+                  subtitleController: subtitleController,
+                ),
+                subtitleController: subtitleController,
+              )..add(
+                  InitSubtitles(
                     subtitleController: subtitleController,
                   ),
-                  subtitleController: subtitleController,
-                )..add(
-                    InitSubtitles(
-                      subtitleController: subtitleController,
-                    ),
-                  ),
+                ),
+              child: IgnorePointer(
+                ignoring: true,
                 child: SubtitleTextView(
                   subtitleStyle: subtitleStyle,
                   backgroundColor: backgroundColor,
